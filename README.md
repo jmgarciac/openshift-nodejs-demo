@@ -15,8 +15,8 @@ oc login -u <USERNAME>
 oc new-project ${NS}
 ```
 
-Push (upload) your local image to the Openshift private registry
-(You'll need to configure your laptop to trust our registry: https://docs.docker.com/registry/insecure/  )
+Push (upload) your local image to the Openshift private registry  
+(you'll need to configure your laptop to trust our registry: https://docs.docker.com/registry/insecure/  )
 ``` bash
 docker login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.ocp4.rci-poc.es
 docker tag my-nodejs:v1 default-route-openshift-image-registry.apps.ocp4.rci-poc.es/${NS}/my-nodejs:v1
@@ -44,3 +44,11 @@ oc -n ${NS} create route edge my-nodejs-route --service my-nodejs-deployment --h
 oc -n ${NS} create route edge my-nodejs-route --service my-nodejs-deployment --hostname nodejs-${NS}.apps.ocp4.rci-poc.es
 oc -n ${NS} get route
 ```
+
+Deploy the same application using Openshift S2I
+``` bash
+oc -n ${NS} new-app https://github.com/jmgarciac/openshift-nodejs-demo.git --context-dir=app --name my-nodejs-quick-deployment
+oc -n ${NS} get pods
+oc -n ${NS} create route edge my-route --service my-nodejs-quick-deployment
+```
+
