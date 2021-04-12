@@ -4,14 +4,14 @@ Clone the project and build your docker image locally
 ```bash
 git clone https://github.com/jmgarciac/openshift-nodejs-demo.git
 cd openshift-nodejs-demo
-docker build -t my-nodejs:v1 .
-docker run -p 8080:8080 -d my-nodejs:v1
+docker build -t ${USER}-nodejs:v1 .
+docker run -p 8080:8080 -d ${USER}-nodejs:v1
 ```
 
 Setup your environment and login to Openshift.
 ``` bash
-export NS="<USERNAME>"
-oc login -u <USERNAME>
+export NS="${USER}"
+oc login -u ${USER}
 oc new-project ${NS}
 ```
 
@@ -19,7 +19,7 @@ Push (upload) your local image to the Openshift private registry
 (you'll need to configure your laptop to trust our registry: https://docs.docker.com/registry/insecure/  )
 ``` bash
 docker login -u $(oc whoami) -p $(oc whoami -t) default-route-openshift-image-registry.apps.ocp4.rci-poc.es
-docker tag my-nodejs:v1 default-route-openshift-image-registry.apps.ocp4.rci-poc.es/${NS}/my-nodejs:v1
+docker tag ${USER}-nodejs:v1 default-route-openshift-image-registry.apps.ocp4.rci-poc.es/${NS}/my-nodejs:v1
 docker push default-route-openshift-image-registry.apps.ocp4.rci-poc.es/${NS}/my-nodejs:v1
 ```
 
