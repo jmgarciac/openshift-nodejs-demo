@@ -15,6 +15,11 @@ oc login -u ${USER}
 oc new-project ${NS}
 ```
 
+Create a project/namespace on Openshift for your application deployment
+``` bash
+oc new-project ${NS}
+```
+
 Push (upload) your local image to the Openshift private registry  
 (you'll need to configure your laptop to trust our registry: https://docs.docker.com/registry/insecure/  )
 ``` bash
