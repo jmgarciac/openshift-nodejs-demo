@@ -12,7 +12,6 @@ Setup your environment and login to Openshift.
 ``` bash
 export NS="${USER}"
 oc login -u ${USER}
-oc new-project ${NS}
 ```
 
 Create a project/namespace on Openshift for your application deployment
